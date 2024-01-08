@@ -7,6 +7,6 @@
 
  <p align="justify">This website serves as an online portfolio to showcase my web presence, resume, story, & featured projects with a Particle.js aligned theme. It was generated using using Jekyll, Sass, and Gulp.js.</p>
 
-![My Alternate Portfolio Website]((https://github.com/DeSecurity/DeSecurity.github.io/blob/main/My-Alternate-Portfolio-Website.jpg)
+![My Alternate Portfolio Website](https://github.com/DeSecurity/DeSecurity.github.io/blob/main/My-Alternate-Portfolio-Website.jpg)
 
 Please hit me up at Daniel.Elizondo.Sec@gmail.com if you have any feedback or ideas for the website. Leave a :star: &nbsp;if you like it!
