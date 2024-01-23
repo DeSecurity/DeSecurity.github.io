@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.5b0174f2.css",
-    "main.js": "/static/js/main.2b32d445.js",
+    "main.js": "/static/js/main.a549b4ce.js",
     "static/media/portfolio.gif": "/static/media/portfolio.ed6c89f1485f23014ebd.gif",
     "static/media/fa-solid-900.svg": "/static/media/fa-solid-900.9fa614346b4e81decc62.svg",
     "static/media/fa-brands-400.svg": "/static/media/fa-brands-400.6fcab609e2f62d5c3104.svg",
@@ -9,6 +9,7 @@
     "static/media/Montserrat-Regular.ttf": "/static/media/Montserrat-Regular.3cd786652b8a2e9d41f2.ttf",
     "static/media/iu_logo.png": "/static/media/iu_logo.5f44628376f5171bea0f.png",
     "static/media/dsc_logo.png": "/static/media/dsc_logo.fdf993910e3f48d0cf30.png",
+    "static/media/Kali-dragon-icon.png": "/static/media/Kali-dragon-icon.bd2a2c14c103bdffa9af.png",
     "static/media/fa-solid-900.eot": "/static/media/fa-solid-900.d93bcbbb0fbfad39d905.eot",
     "static/media/fa-solid-900.ttf": "/static/media/fa-solid-900.aae41ea25bd0dde9f796.ttf",
     "static/media/animated_ashutosh.png": "/static/media/animated_ashutosh.a6571aa6386520448027.png",
@@ -23,6 +24,7 @@
     "static/media/GoogleSans-Bold.ttf": "/static/media/GoogleSans-Bold.d907e4bf3e32637a636e.ttf",
     "static/media/contactMail.png": "/static/media/contactMail.d4c9ac42fba95158a55c.png",
     "static/media/fa-solid-900.woff": "/static/media/fa-solid-900.3ef4f1acb44a2df412bf.woff",
+    "static/media/proofpoint.png": "/static/media/proofpoint.c1cb3e06b535d2d5176a.png",
     "static/media/Agustina.woff": "/static/media/Agustina.eb0c59dda4cc308cba96.woff",
     "static/media/ibm_logo.png": "/static/media/ibm_logo.8204bba7daa4eedf644b.png",
     "static/media/fa-brands-400.woff": "/static/media/fa-brands-400.dc957891d535aa198135.woff",
@@ -50,13 +52,16 @@
     "static/media/jsFramework.svg": "/static/media/jsFramework.911c595a22a28c7b6f78.svg",
     "static/media/address_image.svg": "/static/media/address_image.3385d92e5e426e57a5b1.svg",
     "static/media/pwa.png": "/static/media/pwa.5107022416df1293dd12.png",
+    "static/media/cisa.png": "/static/media/cisa.d1fcb2f6aacd12d5b6f5.png",
     "static/media/experience.svg": "/static/media/experience.c50c576af78a4172f78d.svg",
     "static/media/fa-regular-400.woff": "/static/media/fa-regular-400.2ccf005a6998d30de3d3.woff",
+    "static/media/tryhackme1.png": "/static/media/tryhackme1.e639958c35720df87284.png",
     "static/media/fa-regular-400.woff2": "/static/media/fa-regular-400.e5917ad1531005ea8c3f.woff2",
     "static/media/feelingProud.svg": "/static/media/feelingProud.288e616ff8dc11bd4713.svg",
     "static/media/cloud_infrastructure.svg": "/static/media/cloud_infrastructure.20b580f8784fe74e6e38.svg",
     "static/media/blogs_image.svg": "/static/media/blogs_image.08bcc48d9a3783389c93.svg",
     "static/media/data_science.svg": "/static/media/data_science.9dcadb158ebe250997f6.svg",
+    "static/media/kali-1.svg": "/static/media/kali-1.c335234437e7acc22c1d.svg",
     "static/media/fullstack.svg": "/static/media/fullstack.32a1ffc74848a2ed7dbf.svg",
     "static/media/education.svg": "/static/media/education.d5cc42f042227db12468.svg",
     "index.html": "/index.html",
@@ -64,10 +69,10 @@
     "static/media/talksCardBackAlt.svg": "/static/media/talksCardBackAlt.018d87225926eee9ccc3.svg",
     "static/media/talksCardBack.svg": "/static/media/talksCardBack.7dc8695e60efbc2baab8.svg",
     "main.5b0174f2.css.map": "/static/css/main.5b0174f2.css.map",
-    "main.2b32d445.js.map": "/static/js/main.2b32d445.js.map"
+    "main.a549b4ce.js.map": "/static/js/main.a549b4ce.js.map"
   },
   "entrypoints": [
     "static/css/main.5b0174f2.css",
-    "static/js/main.2b32d445.js"
+    "static/js/main.a549b4ce.js"
   ]
 }
