@@ -1,16 +1,39 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import GridBackground from "@/components/GridBackground";
+import Navigation from "@/components/Navigation";
+import HeroSection from "@/components/HeroSection";
+import AboutSection from "@/components/AboutSection";
+import ValueSection from "@/components/ValueSection";
+import SpecializationsSection from "@/components/SpecializationsSection";
+import SkillsSection from "@/components/SkillsSection";
+import ProjectsSection from "@/components/ProjectsSection";
+import CaseStudiesSection from "@/components/CaseStudiesSection";
+import ExperienceSection from "@/components/ExperienceSection";
+import CertificationsSection from "@/components/CertificationsSection";
+import WritingSection from "@/components/WritingSection";
+import HireMeSection from "@/components/HireMeSection";
+import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/Footer";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
-  return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
-  );
-};
-
-const Index = PlaceholderIndex;
+const Index = () => (
+  <div className="dark min-h-screen bg-background text-foreground">
+    <GridBackground />
+    <Navigation />
+    <main className="relative z-10">
+      <HeroSection />
+      <AboutSection />
+      <ValueSection />
+      <SpecializationsSection />
+      <SkillsSection />
+      <ProjectsSection />
+      <CaseStudiesSection />
+      <ExperienceSection />
+      <CertificationsSection />
+      <WritingSection />
+      <HireMeSection />
+      <ContactSection />
+    </main>
+    <Footer />
+  </div>
+);
 
 export default Index;
