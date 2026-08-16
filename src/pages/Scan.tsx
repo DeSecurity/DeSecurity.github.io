@@ -5,6 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 
 type Phase = "captcha" | "terminal" | "complete";
 
+type TerminalLine = {
+  text: string;
+  emphasis?: boolean;
+  success?: boolean;
+  progress?: boolean;
+};
+
 type ExtendedNavigator = Navigator & {
   deviceMemory?: number;
   connection?: {
@@ -41,6 +48,7 @@ const Scan = () => {
   const [phase, setPhase] = useState<Phase>("captcha");
   const [visibleLines, setVisibleLines] = useState(0);
   const [typedMessage, setTypedMessage] = useState("");
+  const [passwordProgress, setPasswordProgress] = useState(0);
 
   const browserDetails = useMemo(() => {
     const extendedNavigator = navigator as ExtendedNavigator;
@@ -63,7 +71,7 @@ const Scan = () => {
     };
   }, []);
 
-  const terminalLines = useMemo(
+  const terminalLines = useMemo<TerminalLine[]>(
     () => [
       { text: "UNKNOWN NFC ACCESS DETECTED", emphasis: true },
       { text: "RF FIELD HANDSHAKE ........ COMPLETE" },
@@ -81,6 +89,7 @@ const Scan = () => {
       { text: `DEVICE MEMORY .............. ${browserDetails.memory}` },
       { text: `TOUCH POINTS ............... ${browserDetails.touchPoints}` },
       { text: `NETWORK CLASS .............. ${browserDetails.connection}` },
+      { text: "DOWNLOADING PASSWORDS", progress: true },
       { text: "HUMAN PRESENCE ............. PROBABLE", emphasis: true },
       { text: "BEHAVIORAL ANALYSIS ........ COMPLETE", success: true },
     ],
@@ -90,16 +99,29 @@ const Scan = () => {
   useEffect(() => {
     if (phase !== "terminal") return;
 
+    const progressLineIndex = terminalLines.findIndex((line) => line.progress);
+    const progressPause = 1800;
+    const lineDelay = (index: number) =>
+      350 + index * 420 + (index > progressLineIndex ? progressPause : 0);
+
     const timers = terminalLines.map((_, index) =>
-      window.setTimeout(() => setVisibleLines(index + 1), 350 + index * 420),
+      window.setTimeout(() => setVisibleLines(index + 1), lineDelay(index)),
+    );
+    const progressStart = lineDelay(progressLineIndex);
+    const progressTimers = Array.from({ length: 11 }, (_, step) =>
+      window.setTimeout(
+        () => setPasswordProgress(step * 10),
+        progressStart + step * 150,
+      ),
     );
     const completeTimer = window.setTimeout(
       () => setPhase("complete"),
-      700 + terminalLines.length * 420,
+      700 + terminalLines.length * 420 + progressPause,
     );
 
     return () => {
       timers.forEach(window.clearTimeout);
+      progressTimers.forEach(window.clearTimeout);
       window.clearTimeout(completeTimer);
     };
   }, [phase, terminalLines]);
@@ -117,7 +139,7 @@ const Scan = () => {
 
       if (characterIndex >= finalMessage.length) {
         window.clearInterval(typingTimer);
-        redirectTimer = window.setTimeout(() => navigate("/"), 2800);
+        redirectTimer = window.setTimeout(() => navigate("/"), 6500);
       }
     }, 48);
 
@@ -212,15 +234,26 @@ const Scan = () => {
                     initial={{ opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
                     className={
-                      line.success
-                        ? "font-bold text-green-300"
-                        : line.emphasis
-                          ? "font-bold text-amber-300"
-                          : "text-green-500/75"
+                      line.progress
+                        ? "font-bold text-red-400"
+                        : line.success
+                          ? "font-bold text-green-300"
+                          : line.emphasis
+                            ? "font-bold text-amber-300"
+                            : "text-green-500/75"
                     }
                   >
                     <span className="mr-2 text-green-600">&gt;</span>
-                    {line.text}
+                    {line.progress ? (
+                      <>
+                        {line.text} ... [
+                        <span className="text-red-300">{"█".repeat(Math.round(passwordProgress / 10))}</span>
+                        <span className="text-green-900">{"░".repeat(10 - Math.round(passwordProgress / 10))}</span>
+                        ] {passwordProgress}%
+                      </>
+                    ) : (
+                      line.text
+                    )}
                   </motion.p>
                 ))}
                 {phase === "terminal" && (
