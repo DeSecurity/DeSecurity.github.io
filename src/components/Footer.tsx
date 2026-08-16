@@ -1,4 +1,5 @@
 import { Shield, Github, Linkedin, Mail } from "lucide-react";
+import { LINKS } from "@/lib/links";
 
 const Footer = () => (
   <footer className="border-t border-border/50 py-12 relative">
@@ -23,13 +24,13 @@ const Footer = () => (
         </div>
 
         <div className="flex items-center gap-3">
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+          <a href={LINKS.github} target="_blank" rel="noopener noreferrer" aria-label="Daniel Elizondo on GitHub" className="text-muted-foreground hover:text-primary transition-colors">
             <Github className="w-4 h-4" />
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+          <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Daniel Elizondo on LinkedIn" className="text-muted-foreground hover:text-primary transition-colors">
             <Linkedin className="w-4 h-4" />
           </a>
-          <a href="mailto:daniel@example.com" className="text-muted-foreground hover:text-primary transition-colors">
+          <a href={`mailto:${LINKS.email}`} aria-label={`Email ${LINKS.email}`} className="text-muted-foreground hover:text-primary transition-colors">
             <Mail className="w-4 h-4" />
           </a>
         </div>

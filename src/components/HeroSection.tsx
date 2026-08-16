@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowDown, Github, Linkedin, FileText, Mail } from "lucide-react";
+import { ArrowDown, Github, Linkedin, FileText } from "lucide-react";
+import { LINKS } from "@/lib/links";
 
 const titles = [
   "Information Security Engineer",
@@ -90,13 +91,13 @@ const HeroSection = () => {
             <a href="#contact" className="px-6 py-3 border border-primary/30 text-primary font-heading text-sm font-medium rounded hover:bg-primary/10 transition-all">
               Contact Me
             </a>
-            <a href="#" className="px-4 py-3 border border-border text-muted-foreground font-heading text-sm rounded hover:text-foreground hover:border-primary/30 transition-all flex items-center gap-2">
+            <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="px-4 py-3 border border-border text-muted-foreground font-heading text-sm rounded hover:text-foreground hover:border-primary/30 transition-all flex items-center gap-2">
               <FileText className="w-4 h-4" /> Resume
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="px-4 py-3 border border-border text-muted-foreground rounded hover:text-foreground hover:border-primary/30 transition-all">
+            <a href={LINKS.github} target="_blank" rel="noopener noreferrer" aria-label="Daniel Elizondo on GitHub" className="px-4 py-3 border border-border text-muted-foreground rounded hover:text-foreground hover:border-primary/30 transition-all">
               <Github className="w-4 h-4" />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="px-4 py-3 border border-border text-muted-foreground rounded hover:text-foreground hover:border-primary/30 transition-all">
+            <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Daniel Elizondo on LinkedIn" className="px-4 py-3 border border-border text-muted-foreground rounded hover:text-foreground hover:border-primary/30 transition-all">
               <Linkedin className="w-4 h-4" />
             </a>
           </motion.div>

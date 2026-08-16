@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Target, Download, FolderOpen, ArrowRight } from "lucide-react";
+import { Target, FileText, FolderOpen, ArrowRight } from "lucide-react";
+import { LINKS } from "@/lib/links";
 
 const strengths = [
   "Vulnerability Management & Remediation",
@@ -69,8 +70,8 @@ const HireMeSection = () => (
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <a href="#" className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground font-heading text-sm font-medium rounded hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all">
-              <Download className="w-4 h-4" /> Download Resume
+            <a href={LINKS.resume} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground font-heading text-sm font-medium rounded hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all">
+              <FileText className="w-4 h-4" /> View Resume
             </a>
             <a href="#projects" className="inline-flex items-center gap-2 px-5 py-2.5 border border-primary/30 text-primary font-heading text-sm rounded hover:bg-primary/10 transition-all">
               <FolderOpen className="w-4 h-4" /> View Portfolio

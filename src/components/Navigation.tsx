@@ -33,7 +33,7 @@ const Navigation = () => {
       }`}
     >
       <div className="section-container flex items-center justify-between h-16">
-        <a href="#" className="flex items-center gap-2 group">
+        <a href="/" aria-label="Daniel Elizondo — back to top" className="flex items-center gap-2 group">
           <Shield className="w-5 h-5 text-primary transition-all group-hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]" />
           <span className="font-heading font-bold text-sm tracking-wider text-foreground">
             D.ELIZONDO
