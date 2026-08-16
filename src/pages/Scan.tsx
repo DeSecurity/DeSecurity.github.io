@@ -13,6 +13,9 @@ type ExtendedNavigator = Navigator & {
   };
 };
 
+const finalMessage =
+  "Interesting. You scanned a stranger's implant without knowing what it would do.";
+
 const detectBrowser = () => {
   const userAgent = navigator.userAgent;
   if (userAgent.includes("Edg/")) return "Microsoft Edge";
@@ -37,6 +40,7 @@ const Scan = () => {
   const navigate = useNavigate();
   const [phase, setPhase] = useState<Phase>("captcha");
   const [visibleLines, setVisibleLines] = useState(0);
+  const [typedMessage, setTypedMessage] = useState("");
 
   const browserDetails = useMemo(() => {
     const extendedNavigator = navigator as ExtendedNavigator;
@@ -78,7 +82,7 @@ const Scan = () => {
       { text: `TOUCH POINTS ............... ${browserDetails.touchPoints}` },
       { text: `NETWORK CLASS .............. ${browserDetails.connection}` },
       { text: "HUMAN PRESENCE ............. PROBABLE", emphasis: true },
-      { text: "ACCESS GRANTED — loading Daniel's profile", success: true },
+      { text: "BEHAVIORAL ANALYSIS ........ COMPLETE", success: true },
     ],
     [browserDetails],
   );
@@ -102,8 +106,25 @@ const Scan = () => {
 
   useEffect(() => {
     if (phase !== "complete") return;
-    const redirectTimer = window.setTimeout(() => navigate("/"), 3200);
-    return () => window.clearTimeout(redirectTimer);
+
+    let characterIndex = 0;
+    let redirectTimer: number | undefined;
+    setTypedMessage("");
+
+    const typingTimer = window.setInterval(() => {
+      characterIndex += 1;
+      setTypedMessage(finalMessage.slice(0, characterIndex));
+
+      if (characterIndex >= finalMessage.length) {
+        window.clearInterval(typingTimer);
+        redirectTimer = window.setTimeout(() => navigate("/"), 2800);
+      }
+    }, 48);
+
+    return () => {
+      window.clearInterval(typingTimer);
+      if (redirectTimer) window.clearTimeout(redirectTimer);
+    };
   }, [navigate, phase]);
 
   return (
@@ -207,13 +228,29 @@ const Scan = () => {
                 )}
 
                 {phase === "complete" && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-7 border-t border-green-500/20 pt-5 text-center">
-                    <Bot className="mx-auto mb-2 h-7 w-7 text-green-300" />
-                    <p className="text-green-200">Redirecting to secure profile...</p>
-                    <Link to="/" className="mt-2 inline-block text-xs text-green-500/60 underline hover:text-green-300">
-                      Continue now
-                    </Link>
-                  </motion.div>
+                  <div className="mt-7 border-t border-green-500/20 pt-5">
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="min-h-[3.5rem] text-sm font-bold leading-6 text-amber-300 sm:text-base"
+                    >
+                      <span className="mr-2 text-green-500">&gt;</span>
+                      {typedMessage}
+                      {typedMessage.length < finalMessage.length && (
+                        <span className="ml-1 inline-block h-4 w-2 animate-pulse bg-amber-300 align-middle" />
+                      )}
+                    </motion.p>
+
+                    {typedMessage === finalMessage && (
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-5 text-center">
+                        <Bot className="mx-auto mb-2 h-7 w-7 text-green-300" />
+                        <p className="text-green-200">Redirecting to secure profile...</p>
+                        <Link to="/" className="mt-2 inline-block text-xs text-green-500/60 underline hover:text-green-300">
+                          Continue now
+                        </Link>
+                      </motion.div>
+                    )}
+                  </div>
                 )}
               </div>
 
