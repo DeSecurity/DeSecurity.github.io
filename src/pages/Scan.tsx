@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, Check, Fingerprint, Radio, ShieldAlert, Terminal } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 type Phase = "captcha" | "terminal" | "complete";
 
@@ -44,11 +44,11 @@ const detectDevice = () => {
 };
 
 const Scan = () => {
-  const navigate = useNavigate();
   const [phase, setPhase] = useState<Phase>("captcha");
   const [visibleLines, setVisibleLines] = useState(0);
   const [typedMessage, setTypedMessage] = useState("");
   const [passwordProgress, setPasswordProgress] = useState(0);
+  const terminalOutputRef = useRef<HTMLDivElement>(null);
 
   const browserDetails = useMemo(() => {
     const extendedNavigator = navigator as ExtendedNavigator;
@@ -130,24 +130,30 @@ const Scan = () => {
     if (phase !== "complete") return;
 
     let characterIndex = 0;
-    let redirectTimer: number | undefined;
     setTypedMessage("");
 
     const typingTimer = window.setInterval(() => {
       characterIndex += 1;
       setTypedMessage(finalMessage.slice(0, characterIndex));
 
-      if (characterIndex >= finalMessage.length) {
-        window.clearInterval(typingTimer);
-        redirectTimer = window.setTimeout(() => navigate("/"), 6500);
-      }
+      if (characterIndex >= finalMessage.length) window.clearInterval(typingTimer);
     }, 48);
 
-    return () => {
-      window.clearInterval(typingTimer);
-      if (redirectTimer) window.clearTimeout(redirectTimer);
-    };
-  }, [navigate, phase]);
+    return () => window.clearInterval(typingTimer);
+  }, [phase]);
+
+  useEffect(() => {
+    const animationFrame = window.requestAnimationFrame(() => {
+      const output = terminalOutputRef.current;
+      if (!output) return;
+      output.scrollTo({
+        top: output.scrollHeight,
+        behavior: "smooth",
+      });
+    });
+
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [passwordProgress, phase, typedMessage, visibleLines]);
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#020604] text-green-400">
@@ -227,7 +233,10 @@ const Scan = () => {
                 </div>
               </header>
 
-              <div className="min-h-[480px] p-4 font-mono text-xs leading-6 sm:p-6 sm:text-sm">
+              <div
+                ref={terminalOutputRef}
+                className="h-[68vh] min-h-[420px] overflow-y-auto scroll-smooth p-4 font-mono text-xs leading-6 sm:p-6 sm:text-sm"
+              >
                 {terminalLines.slice(0, visibleLines).map((line, index) => (
                   <motion.p
                     key={index}
@@ -277,9 +286,9 @@ const Scan = () => {
                     {typedMessage === finalMessage && (
                       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-5 text-center">
                         <Bot className="mx-auto mb-2 h-7 w-7 text-green-300" />
-                        <p className="text-green-200">Redirecting to secure profile...</p>
-                        <Link to="/" className="mt-2 inline-block text-xs text-green-500/60 underline hover:text-green-300">
-                          Continue now
+                        <p className="text-green-200">Manual authorization required.</p>
+                        <Link to="/" className="mt-4 inline-flex border border-green-400/60 bg-green-500/10 px-5 py-2 text-xs font-bold tracking-widest text-green-300 transition hover:bg-green-400 hover:text-black">
+                          CONTINUE TO PROFILE
                         </Link>
                       </motion.div>
                     )}
